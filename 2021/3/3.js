@@ -1,19 +1,19 @@
 var standard_input = process.stdin;
 // Set input character encoding.
 let dataArr = [];
-standard_input.setEncoding('utf-8');
+standard_input.setEncoding("utf-8");
 // Prompt user to input data in console.
-console.log('Please input text in command line.');
+console.log("Please input text in command line.");
 // When user input data and click enter key.
-standard_input.on('data', function (data) {
+standard_input.on("data", function (data) {
   // User input exit.
-  let binaryString = '';
-  let binaryString2 = '';
+  let binaryString = "";
+  let binaryString2 = "";
   let oxygen = [];
   let co2 = [];
   let counter = 0;
   let filtered = [];
-  if (data.includes('exit')) {
+  if (data.includes("exit")) {
     oxygen = [...dataArr];
     co2 = [...dataArr];
     for (let i = 0; i < dataArr[0].length; i++) {
@@ -26,11 +26,11 @@ standard_input.on('data', function (data) {
         }
       });
       if (counter > 0) {
-        binaryString += '1';
-        binaryString2 += '0';
+        binaryString += "1";
+        binaryString2 += "0";
       } else {
-        binaryString += '0';
-        binaryString2 += '1';
+        binaryString += "0";
+        binaryString2 += "1";
       }
       counter = 0;
     }
@@ -93,6 +93,6 @@ standard_input.on('data', function (data) {
     console.log(decimal1 * decimal2);
     process.exit();
   } else {
-    dataArr.push(data - 0);
+    dataArr.push(data);
   }
 });
