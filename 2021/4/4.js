@@ -17,9 +17,9 @@ standard_input.on('data', function (data) {
     dataArr.forEach((currentNumber) => {
       for (let i = 0; i < id; i++) {
         boards[i].forEach((row) => {
-          console.log(row);
-          const index = row.indexOf(currentNumber);
+          const index = row.findIndex((el) => el === currentNumber);
           row[index] = true;
+          console.log(row);
         });
       }
     });
