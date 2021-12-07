@@ -17,7 +17,7 @@ standard_input.on('data', function (data) {
       days[day]++;
     }
 
-    for (let i = 0; i < 256; i++) {
+    for (let i = 0; i < 80; i++) {
       let six_fish = 0;
       let eight_fish = 0;
       for (let day = 0; day < days.length; day++) {
