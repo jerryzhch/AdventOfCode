@@ -1,25 +1,35 @@
-let data = require('fs').readFileSync('input.txt', { encoding: 'utf-8' }).trim();
-let lines = data.trim().split(/\n/);
+const fs = require('fs');
 
-const paths = {};
+const data = fs
+  .readFileSync('input.txt', 'utf-8')
+  .split('\n')
+  .map((c) => c.split('-'));
 
-for (const line of lines) {
-  const [b, e] = line.split('-');
-  paths[b] = [...(paths[b] ?? []), e];
-  paths[e] = [...(paths[e] ?? []), b];
-}
+const connections = {};
+data.forEach((con) => {
+  connections[con[0]] = connections[con[0]] ? [...connections[con[0]], con[1]] : [con[1]];
+  connections[con[1]] = connections[con[1]] ? [...connections[con[1]], con[0]] : [con[0]];
+});
 
-const found = [];
+const getPath = (cave, path, paths, minor) => {
+  let newPath = [...path.map((e) => e), cave];
 
-function pathFind(pos, current) {
-  if (pos === 'end') {
-    found.push([...current, pos]);
+  if (cave === 'end') {
+    paths.push(newPath);
     return;
   }
-  const next = [...current, pos];
-  for (const dir of paths[pos]) if (dir.toLowerCase() !== dir || current.indexOf(dir) === -1) pathFind(dir, next);
-}
 
-pathFind('start', []);
-
-console.log(found.length);
+  connections[cave].forEach((c) => {
+    if (c === c.toUpperCase() || !newPath.includes(c)) {
+      getPath(c, newPath, paths, minor);
+    } else if (minor && c !== 'start' && c !== 'end') {
+      getPath(c, newPath, paths, false);
+    }
+  });
+};
+let p1 = [];
+getPath('start', [], p1, false);
+console.log('PART 1 Result: ', p1.length);
+let p2 = [];
+getPath('start', [], p2, true);
+console.log('PART 2 Result: ', p2.length);
