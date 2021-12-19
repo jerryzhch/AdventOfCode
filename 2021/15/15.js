@@ -2,7 +2,6 @@ let data = require('fs').readFileSync('input.txt', { encoding: 'utf-8' }).trim()
 let lines = data.trim().split(/\n/);
 
 let map = lines.map((line) => [...line].map((v) => +v));
-console.log(map);
 
 let risk = Array.from({ length: map.length }, () => Array.from({ length: map[0].length }, () => 0));
 
