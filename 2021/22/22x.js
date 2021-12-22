@@ -21,7 +21,7 @@ const countCubes = (instructions) => {
   const cuboids = instructions.reduce((cuboids, instr) => {
     return [...cuboids.flatMap((c) => difference(c, instr.cuboid)), ...(instr.cmd === 'on' ? [instr.cuboid] : [])];
   }, []);
-  return cuboids.map((c) => c.reduce((r, [, h]) => r * (h - l + 1), 1)).reduce((r, c) => c + r, 0);
+  return cuboids.map((c) => c.reduce((r, [l, h]) => r * (h - l + 1), 1)).reduce((r, c) => c + r, 0);
 };
 
 const difference = (cuboid, other) => {
